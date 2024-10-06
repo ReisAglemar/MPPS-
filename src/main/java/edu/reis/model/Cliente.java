@@ -1,0 +1,79 @@
+package edu.reis.model;
+
+public class Cliente {
+
+    private static int idAuto = 1;
+
+    private int id;
+    private String nome;
+    private String email;
+    private String telefone;
+
+    public Cliente(String nome, String email, String telefone) {
+
+        if (nome == null || nome.trim().isEmpty() || nome.length() > 100 || nome.length() < 3) {
+            throw new IllegalArgumentException("Nome não pode ser vazio ou menor que 3 caracteres");
+        }
+
+        if (email == null || email.trim().isEmpty()) {
+            throw new IllegalArgumentException("e-mail não pode ser vazio");
+        }
+
+        if (telefone == null || telefone.trim().isEmpty()) {
+            throw new IllegalArgumentException("Telefone não pode ser vazio");
+        }
+
+        this.id = idAuto++;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+    }
+
+    public Cliente() {
+        this.id = idAuto++;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+
+        if (nome == null || nome.trim().isEmpty() || nome.length() > 100 || nome.length() < 3) {
+            throw new IllegalArgumentException("Nome não pode ser vazio ou menor que 3 caracteres");
+        }
+
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+
+        if (email == null || email.trim().isEmpty() || email.length() > 100 || email.length() < 3) {
+            throw new IllegalArgumentException("email não pode ser vazio ou menor que 3 caracteres");
+        }
+
+        this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+
+        if (telefone == null || telefone.trim().isEmpty() || telefone.length() > 14 || telefone.length() < 8) {
+            throw new IllegalArgumentException("Telefone não pode ser vazio ou maior que 14 caracteres ou menor que 8");
+        }
+
+        this.telefone = telefone;
+    }
+}
+
