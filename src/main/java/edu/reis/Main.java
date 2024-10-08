@@ -1,6 +1,6 @@
 package edu.reis;
 
-import static edu.reis.view.InterfaceUsuario.interfacePrincipal;
+import static edu.reis.controller.InterfaceUsuario.interfacePrincipal;
 
 
 public class Main {

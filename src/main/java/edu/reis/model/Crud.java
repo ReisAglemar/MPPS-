@@ -1,5 +1,7 @@
 package edu.reis.model;
 
+import edu.reis.view.SaidaTela;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -7,7 +9,14 @@ import java.util.Scanner;
 
 public class Crud implements Icrud {
 
+    private final SaidaTela saidaTela;
     private final List<Cliente> clientes = new ArrayList<>();
+    private final List<Cliente> clientesRemovidos = new ArrayList<>();
+
+
+    public Crud(SaidaTela saidaTela) {
+        this.saidaTela = saidaTela;
+    }
 
 
     @Override
@@ -15,16 +24,13 @@ public class Crud implements Icrud {
 
         try {
             this.clientes.add(cliente);
-            System.out.println("Cliente adicionado com sucesso!");
-
-        } catch (NullPointerException | UnsupportedOperationException e) {
-            System.out.println("Erro ao adicionar cliente. Verifique a lista de clientes!");
+            saidaTela.clienteAdicionado();
 
         } catch (OutOfMemoryError e) {
-            System.out.println("Erro ao adicionar cliente. Verifique a disponibilidade de memória!");
+            saidaTela.outOfMemoryError();
 
         } catch (Exception e) {
-            System.out.println("Erro inesperado. Informe essa mensagem ao suporte: " + e.getMessage());
+            saidaTela.exceptionEspecial(e);
         }
     }
 
@@ -35,11 +41,12 @@ public class Crud implements Icrud {
         Cliente cliente = buscaClientePorId(id);
 
         if (cliente != null) {
+            this.clientesRemovidos.add(cliente);
             this.clientes.remove(cliente);
-            System.out.println("Cliente com ID- " + id + " removido com sucesso!");
+            saidaTela.clienteRemovido(id);
 
         } else {
-            clienteNaoEncontrado(id);
+           saidaTela.clienteNaoEncontrado(id);
         }
 
     }
@@ -58,7 +65,7 @@ public class Crud implements Icrud {
             do {
 
                 try {
-                    mostraOpcoes();
+                    saidaTela.menuAtualizarCliente();
 
                     opcao = teclado.nextInt();
                     teclado.nextLine();
@@ -88,21 +95,21 @@ public class Crud implements Icrud {
                             break;
 
                         default:
-                            System.out.println("Opção inválida!");
+                            saidaTela.opcaoInvalida();
                     }
 
                 } catch (InputMismatchException e) {
                     teclado.nextLine();
-                    System.out.println("Verifique o tipo de dado informado.");
+                    saidaTela.inputMismatchException();
 
-                } catch (IllegalArgumentException e){
-                    System.out.println("Erro ao atualizar de cliente: " + e.getMessage());
+                } catch (IllegalArgumentException e) {
+                    saidaTela.illegalArgumentException(e);
                 }
 
             } while (opcao != 0);
 
         } else {
-            clienteNaoEncontrado(id);
+            saidaTela.clienteNaoEncontrado(id);
         }
     }
 
@@ -110,13 +117,28 @@ public class Crud implements Icrud {
     @Override
     public void listaClientes() {
 
-        if(clientes.isEmpty()) {
-            System.out.println("A lista de clientes está vazia!");
+        if (clientes.isEmpty()) {
+            saidaTela.listaVazia();
             return;
         }
 
         for (Cliente cliente : clientes) {
-            mostraCliente(cliente);
+            saidaTela.mostraCliente(cliente);
+        }
+
+    }
+
+
+    @Override
+    public void listarClientesRemovidos() {
+
+        if (clientesRemovidos.isEmpty()) {
+            saidaTela.listaVazia();
+            return;
+        }
+
+        for (Cliente clienteRemovido : clientesRemovidos) {
+           saidaTela.mostraCliente(clienteRemovido);
         }
 
     }
@@ -128,16 +150,16 @@ public class Crud implements Icrud {
         Cliente cliente = buscaClientePorId(id);
 
         if (cliente != null) {
-            mostraCliente(cliente);
+           saidaTela.mostraCliente(cliente);
 
         } else {
-            clienteNaoEncontrado(id);
+            saidaTela.clienteNaoEncontrado(id);
         }
 
     }
 
 
-    // FUNÇÕES AUXILIARES;
+    // FUNÇÃO AUXILIAR
 
     private Cliente buscaClientePorId(int id) {
 
@@ -147,47 +169,6 @@ public class Crud implements Icrud {
                 return cliente;
             }
         }
-
         return null;
-    }
-
-
-    private void mostraCliente(Cliente cliente) {
-
-        String mostraCliente = """
-                
-                ============= Cliente =============
-                ID: %d
-                Nome: %s
-                E-mail: %s
-                Telefone: %s
-                """.formatted(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone());
-
-        System.out.println(mostraCliente);
-    }
-
-
-    private void clienteNaoEncontrado(int id) {
-
-        System.out.println("Cliente com ID- " + id + " não foi encontrado!");
-        System.out.println("Verifique o ID informado.");
-
-    }
-
-
-    private void mostraOpcoes() {
-
-        String mostraOpcoes = """
-                
-                    Escolha qual dado deseja modificar
-                
-                    1- Para alterar o nome do cliente;
-                    2- Para alterar o e-mail do cliente;
-                    3- Para alterar o telefone do cliente;
-                    0- Para finalizar as alterações;
-                
-                """;
-
-        System.out.println(mostraOpcoes);
     }
 }

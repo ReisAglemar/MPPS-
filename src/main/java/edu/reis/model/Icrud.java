@@ -12,6 +12,8 @@ public interface Icrud {
 
     public void listaClientes();
 
+    public void listarClientesRemovidos();
+
     public void buscarClientePorId(int id);
 
 
