@@ -4,8 +4,14 @@ import edu.reis.view.SaidaTela;
 
 public class ValidaDadosEntrada {
 
+    private final SaidaTela saidaTela;
 
-    public Integer validaEntrada(String entrada, SaidaTela saidaTela) {
+    public ValidaDadosEntrada(SaidaTela saidaTela) {
+        this.saidaTela = saidaTela;
+    }
+
+
+    public Integer validaEntrada(String entrada) {
 
         if (entrada.equalsIgnoreCase("sair")) {
             return null;

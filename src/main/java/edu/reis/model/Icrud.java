@@ -4,17 +4,15 @@ import java.util.Scanner;
 
 public interface Icrud {
 
-    public void adicionaCliente(Cliente cliente);
+    void adicionaCliente(Cliente cliente);
 
-    public void removeCliente(int id);
+    void removeCliente(int id);
 
-    public void alterarCliente(int id, Scanner teclado);
+    Cliente alterarCliente(int id);
 
-    public void listaClientes();
+    void listaClientes();
 
-    public void listarClientesRemovidos();
+    void listarClientesRemovidos();
 
-    public void buscarClientePorId(int id);
-
-
+    void buscarClientePorId(int id);
 }

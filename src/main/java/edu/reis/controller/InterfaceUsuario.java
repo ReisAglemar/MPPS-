@@ -1,30 +1,26 @@
 package edu.reis.controller;
 
-
 import edu.reis.model.Crud;
 import edu.reis.view.SaidaTela;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class InterfaceUsuario {
+public abstract class InterfaceUsuario {
 
     public static void interfacePrincipal() {
 
         Scanner teclado = new Scanner(System.in);
         SaidaTela saidaTela = new SaidaTela();
-        ValidaDadosEntrada validaDadosEntrada = new ValidaDadosEntrada();
+        ValidaDadosEntrada validaDadosEntrada = new ValidaDadosEntrada(saidaTela);
         Crud crud = new Crud(saidaTela);
-        RequesitaOperacoes requesitaOperacoes = new RequesitaOperacoes(validaDadosEntrada);
-
+        RealizaOperacoes realizaOperacoes = new RealizaOperacoes(teclado, saidaTela, validaDadosEntrada, crud);
 
 
         saidaTela.logo();
-
         int opcao = 1137;
 
         do {
-
             try {
                 saidaTela.menu();
                 opcao = teclado.nextInt();
@@ -33,20 +29,21 @@ public class InterfaceUsuario {
                 switch (opcao) {
 
                     case 1:
-                        System.out.println("falta fazer");
+                        realizaOperacoes.adicionarCliente(teclado);
                         break;
 
                     case 2:
-                        crud.listaClientes();
+                        realizaOperacoes.listarClientes();
                         break;
 
-                    case 3:
-                        System.out.println("falta fazer");
+                    // Atualiza, Remove, Busca
+                    case 3, 4, 5:
+                        saidaTela.solicitaId();
+                        realizaOperacoes.realizar(opcao);
                         break;
 
-                    case 4, 5:
-                        saidaTela.precisaId();
-                        requesitaOperacoes.requisitar(teclado, crud, opcao, saidaTela);
+                    case 6:
+                        realizaOperacoes.listarClientesRemovidos();
                         break;
 
                     case 0:
