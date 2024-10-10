@@ -1,19 +1,19 @@
 package edu.reis.model;
 
-import edu.reis.view.SaidaTela;
+import edu.reis.view.SaidaDados;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Crud implements Icrud {
 
-    private final SaidaTela saidaTela;
+    private final SaidaDados saidaDados;
     private final List<Cliente> clientes = new ArrayList<>();
     private final List<Cliente> clientesRemovidos = new ArrayList<>();
 
 
-    public Crud(SaidaTela saidaTela) {
-        this.saidaTela = saidaTela;
+    public Crud(SaidaDados saidaDados) {
+        this.saidaDados = saidaDados;
     }
 
 
@@ -22,13 +22,13 @@ public class Crud implements Icrud {
 
         try {
             this.clientes.add(cliente);
-            saidaTela.clienteAdicionado();
+            saidaDados.clienteAdicionado();
 
         } catch (OutOfMemoryError e) {
-            saidaTela.outOfMemoryError();
+            saidaDados.outOfMemoryError();
 
         } catch (Exception e) {
-            saidaTela.exceptionEspecial(e);
+            saidaDados.exceptionEspecial(e);
         }
     }
 
@@ -41,10 +41,10 @@ public class Crud implements Icrud {
         if (cliente != null) {
             this.clientesRemovidos.add(cliente);
             this.clientes.remove(cliente);
-            saidaTela.clienteRemovido(id);
+            saidaDados.clienteRemovido(id);
 
         } else {
-            saidaTela.clienteNaoEncontrado(id);
+            saidaDados.clienteNaoEncontrado(id);
         }
     }
 
@@ -58,7 +58,7 @@ public class Crud implements Icrud {
             return cliente;
         }
 
-        saidaTela.clienteNaoEncontrado(id);
+        saidaDados.clienteNaoEncontrado(id);
         return null;
     }
 
@@ -67,12 +67,12 @@ public class Crud implements Icrud {
     public void listaClientes() {
 
         if (clientes.isEmpty()) {
-            saidaTela.listaVazia();
+            saidaDados.listaVazia();
             return;
         }
 
         for (Cliente cliente : clientes) {
-            saidaTela.mostraCliente(cliente);
+            saidaDados.mostraCliente(cliente);
         }
     }
 
@@ -81,12 +81,12 @@ public class Crud implements Icrud {
     public void listarClientesRemovidos() {
 
         if (clientesRemovidos.isEmpty()) {
-            saidaTela.listaVazia();
+            saidaDados.listaVazia();
             return;
         }
 
         for (Cliente clienteRemovido : clientesRemovidos) {
-            saidaTela.mostraCliente(clienteRemovido);
+            saidaDados.mostraCliente(clienteRemovido);
         }
     }
 
@@ -97,16 +97,15 @@ public class Crud implements Icrud {
         Cliente cliente = buscaClientePorId(id);
 
         if (cliente != null) {
-            saidaTela.mostraCliente(cliente);
+            saidaDados.mostraCliente(cliente);
 
         } else {
-            saidaTela.clienteNaoEncontrado(id);
+            saidaDados.clienteNaoEncontrado(id);
         }
     }
 
 
     // FUNÇÃO AUXILIAR
-
     private Cliente buscaClientePorId(int id) {
 
         for (Cliente cliente : clientes) {

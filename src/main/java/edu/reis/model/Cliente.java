@@ -29,17 +29,26 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public Cliente() {
-        this.id = idAuto++;
-    }
 
     public int getId() {
         return id;
     }
 
+
     public String getNome() {
         return nome;
     }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+
+    public String getTelefone() {
+        return telefone;
+    }
+
 
     public void setNome(String nome) {
 
@@ -50,9 +59,6 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
     public void setEmail(String email) {
 
@@ -63,9 +69,6 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
 
     public void setTelefone(String telefone) {
 

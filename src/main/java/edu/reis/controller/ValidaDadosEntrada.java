@@ -1,13 +1,13 @@
 package edu.reis.controller;
 
-import edu.reis.view.SaidaTela;
+import edu.reis.view.SaidaDados;
 
 public class ValidaDadosEntrada {
 
-    private final SaidaTela saidaTela;
+    private final SaidaDados saidaDados;
 
-    public ValidaDadosEntrada(SaidaTela saidaTela) {
-        this.saidaTela = saidaTela;
+    public ValidaDadosEntrada(SaidaDados saidaDados) {
+        this.saidaDados = saidaDados;
     }
 
 
@@ -22,7 +22,7 @@ public class ValidaDadosEntrada {
             return id;
 
         } catch (NumberFormatException e) {
-            saidaTela.numberFormatException();
+            saidaDados.numberFormatException();
         }
         return -1;
     }

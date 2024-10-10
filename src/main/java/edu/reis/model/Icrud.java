@@ -1,7 +1,5 @@
 package edu.reis.model;
 
-import java.util.Scanner;
-
 public interface Icrud {
 
     void adicionaCliente(Cliente cliente);

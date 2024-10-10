@@ -2,9 +2,9 @@ package edu.reis.view;
 
 import edu.reis.model.Cliente;
 
-public class SaidaTela {
+public class SaidaDados {
 
-    public SaidaTela() {
+    public SaidaDados() {
 
     }
 
