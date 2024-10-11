@@ -8,9 +8,9 @@ public interface Icrud {
 
     Cliente alterarCliente(int id);
 
-    void listaClientes();
+    void listaClientesAtivos();
 
-    void listarClientesRemovidos();
+    void listaClientesDesativos();
 
     void buscarClientePorId(int id);
 }

@@ -1,9 +1,9 @@
 package edu.reis;
 
-import static edu.reis.controller.EntradaDadosPrincipal.entradaDadosPrincipal;
+import static edu.reis.controller.EntradaDados.entradaDados;
 
 public class Main {
     public static void main(String[] args) {
-        entradaDadosPrincipal();
+        entradaDados();
     }
 }

@@ -8,6 +8,7 @@ public class Cliente {
     private String nome;
     private String email;
     private String telefone;
+    private Boolean ativo;
 
     public Cliente(String nome, String email, String telefone) {
 
@@ -27,6 +28,7 @@ public class Cliente {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
+        this.ativo = true;
     }
 
 
@@ -47,6 +49,11 @@ public class Cliente {
 
     public String getTelefone() {
         return telefone;
+    }
+
+
+    public Boolean getAtivo() {
+        return ativo;
     }
 
 
@@ -77,6 +84,11 @@ public class Cliente {
         }
 
         this.telefone = telefone;
+    }
+
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }
 

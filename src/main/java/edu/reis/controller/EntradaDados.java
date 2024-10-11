@@ -1,20 +1,21 @@
 package edu.reis.controller;
 
 import edu.reis.model.Crud;
+import edu.reis.model.Icrud;
 import edu.reis.view.SaidaDados;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public abstract class EntradaDadosPrincipal {
-    public static void entradaDadosPrincipal() {
+public abstract class EntradaDados {
+    public static void entradaDados() {
 
         Scanner teclado = new Scanner(System.in);
         SaidaDados saidaDados = new SaidaDados();
         ValidaDadosEntrada validaDadosEntrada = new ValidaDadosEntrada(saidaDados);
-        Crud crud = new Crud(saidaDados);
-        EntradaDadosAuxiliar entradaDadosAuxiliar =
-                new EntradaDadosAuxiliar(teclado, saidaDados, validaDadosEntrada, crud);
+        Icrud crud = new Crud(saidaDados);
+        GerenciaOperacoes gerenciaOperacoes =
+                new GerenciaOperacoes(teclado, saidaDados, validaDadosEntrada, crud);
 
 
         saidaDados.logo();
@@ -29,21 +30,21 @@ public abstract class EntradaDadosPrincipal {
                 switch (opcao) {
 
                     case 1:
-                        entradaDadosAuxiliar.requisitaAdicionarCliente();
+                        gerenciaOperacoes.requisitaAdicionarCliente();
                         break;
 
                     case 2:
-                        entradaDadosAuxiliar.requisitaListarClientes();
+                        gerenciaOperacoes.requisitaListaClientesAtivos();
                         break;
 
                     // Atualiza, Remove, Busca
                     case 3, 4, 5:
                         saidaDados.solicitaId();
-                        entradaDadosAuxiliar.requisitaTestarEntrada(opcao);
+                        gerenciaOperacoes.requisitaTestarEntrada(opcao);
                         break;
 
                     case 6:
-                        entradaDadosAuxiliar.requisitaListarClientesRemovidos();
+                        gerenciaOperacoes.requisitaListaClientesDesativos();
                         break;
 
                     case 0:

@@ -9,7 +9,6 @@ public class Crud implements Icrud {
 
     private final SaidaDados saidaDados;
     private final List<Cliente> clientes = new ArrayList<>();
-    private final List<Cliente> clientesRemovidos = new ArrayList<>();
 
 
     public Crud(SaidaDados saidaDados) {
@@ -39,8 +38,8 @@ public class Crud implements Icrud {
         Cliente cliente = buscaClientePorId(id);
 
         if (cliente != null) {
-            this.clientesRemovidos.add(cliente);
-            this.clientes.remove(cliente);
+
+            cliente.setAtivo(false);
             saidaDados.clienteRemovido(id);
 
         } else {
@@ -64,29 +63,39 @@ public class Crud implements Icrud {
 
 
     @Override
-    public void listaClientes() {
+    public void listaClientesAtivos() {
 
-        if (clientes.isEmpty()) {
-            saidaDados.listaVazia();
-            return;
-        }
+        boolean listaVazia = true;
 
         for (Cliente cliente : clientes) {
-            saidaDados.mostraCliente(cliente);
+
+            if (cliente.getAtivo()) {
+                saidaDados.mostraCliente(cliente);
+                listaVazia = false;
+            }
+        }
+
+        if (listaVazia) {
+            saidaDados.listaVazia();
         }
     }
 
 
     @Override
-    public void listarClientesRemovidos() {
+    public void listaClientesDesativos() {
 
-        if (clientesRemovidos.isEmpty()) {
-            saidaDados.listaVazia();
-            return;
+        boolean listaVazia = true;
+
+        for (Cliente cliente : clientes) {
+
+            if (!cliente.getAtivo()) {
+                saidaDados.mostraCliente(cliente);
+                listaVazia = false;
+            }
         }
 
-        for (Cliente clienteRemovido : clientesRemovidos) {
-            saidaDados.mostraCliente(clienteRemovido);
+        if (listaVazia) {
+            saidaDados.listaVazia();
         }
     }
 

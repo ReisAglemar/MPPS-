@@ -1,23 +1,23 @@
 package edu.reis.controller;
 
 import edu.reis.model.Cliente;
-import edu.reis.model.Crud;
+import edu.reis.model.Icrud;
 import edu.reis.view.SaidaDados;
 
 import java.util.Scanner;
 
-public class EntradaDadosAuxiliar {
+public class GerenciaOperacoes {
 
     private final ValidaDadosEntrada validaDadosEntrada;
     private final SaidaDados saidaDados;
-    private final Crud crud;
+    private final Icrud crud;
     private final Scanner teclado;
 
 
-    public EntradaDadosAuxiliar(Scanner teclado,
-                                SaidaDados saidaDados,
-                                ValidaDadosEntrada validaDadosEntrada,
-                                Crud crud) {
+    public GerenciaOperacoes(Scanner teclado,
+                             SaidaDados saidaDados,
+                             ValidaDadosEntrada validaDadosEntrada,
+                             Icrud crud) {
         this.teclado = teclado;
         this.saidaDados = saidaDados;
         this.validaDadosEntrada = validaDadosEntrada;
@@ -74,13 +74,13 @@ public class EntradaDadosAuxiliar {
     }
 
 
-    public void requisitaListarClientes() {
-        crud.listaClientes();
+    public void requisitaListaClientesAtivos() {
+        crud.listaClientesAtivos();
     }
 
 
-    public void requisitaListarClientesRemovidos() {
-        crud.listarClientesRemovidos();
+    public void requisitaListaClientesDesativos() {
+        crud.listaClientesDesativos();
     }
 
 

@@ -77,8 +77,9 @@ public class SaidaDados {
                 Nome: %s
                 E-mail: %s
                 Telefone: %s
+                Ativo: %s
                 
-                """.formatted(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone());
+                """.formatted(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone(), cliente.getAtivo());
         System.out.println(mostraCliente);
     }
 
