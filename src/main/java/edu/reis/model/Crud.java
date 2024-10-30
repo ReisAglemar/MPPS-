@@ -65,38 +65,34 @@ public class Crud implements Icrud {
     @Override
     public void listaClientesAtivos() {
 
-        boolean listaVazia = true;
+        if (!clientes.isEmpty()) {
 
-        for (Cliente cliente : clientes) {
-
-            if (cliente.getAtivo()) {
-                saidaDados.mostraCliente(cliente);
-                listaVazia = false;
+            for (Cliente cliente : clientes) {
+                if (cliente.getAtivo()) {
+                    saidaDados.mostraCliente(cliente);
+                }
             }
+            return;
         }
 
-        if (listaVazia) {
-            saidaDados.listaVazia();
-        }
+        saidaDados.listaVazia();
     }
 
 
     @Override
     public void listaClientesDesativos() {
 
-        boolean listaVazia = true;
+        if (!clientes.isEmpty()) {
 
-        for (Cliente cliente : clientes) {
-
-            if (!cliente.getAtivo()) {
-                saidaDados.mostraCliente(cliente);
-                listaVazia = false;
+            for (Cliente cliente : clientes) {
+                if (!cliente.getAtivo()) {
+                    saidaDados.mostraCliente(cliente);
+                }
             }
+            return;
         }
 
-        if (listaVazia) {
-            saidaDados.listaVazia();
-        }
+        saidaDados.listaVazia();
     }
 
 
