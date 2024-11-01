@@ -49,13 +49,47 @@ public class SaidaDados {
     }
 
 
-    public void clienteAlterado() {
-        String clienteAlterado = """
+    public void mostraAlteracao(Cliente clienteParaAlterar, Cliente clienteBuffer) {
+
+        System.out.print("Cadastro ATUAL:");
+        mostraClienteParaAlteracao(clienteParaAlterar);
+
+        System.out.print("Será ATUALIZADO Para: ");
+        mostraClienteParaAlteracao(clienteBuffer);
+    }
+
+
+    public void perguntaSalvaAteracao() {
+        String pergurntaSavaAlteracao = """
                 
-                    Cliente Alterado Sucesso!
+                    Houve Alteração de Cliente!
+                
+                    Você Gostaria de Salvar Essas mudanças?
+                    1- Sim
+                    2- Nao
                 
                 """;
-        System.out.println(clienteAlterado);
+        System.out.println(pergurntaSavaAlteracao);
+    }
+
+
+    public void atulizacaoSalva(){
+        String atualizacaoSalva = """
+                
+                    Cliente Atualizado Sucesso!
+                
+                """;
+        System.out.println(atualizacaoSalva);
+    }
+
+
+    public void atulizacaoDescartada(){
+        String atualizacaoDescartada = """
+                
+                    Sem Alterações Cadastrais!
+                
+                """;
+        System.out.println(atualizacaoDescartada);
     }
 
 
@@ -83,15 +117,27 @@ public class SaidaDados {
         System.out.println(mostraCliente);
     }
 
+    public void mostraClienteParaAlteracao(Cliente cliente) {
+        String mostraCliente = """
+                
+                ============= Cliente =============
+                Nome: %s
+                E-mail: %s
+                Telefone: %s
+                
+                """.formatted(cliente.getNome(), cliente.getEmail(), cliente.getTelefone());
+        System.out.println(mostraCliente);
+    }
+
 
     public void clienteNaoEncontrado(int id) {
-        String clieteNaoEncontrardo = """
+        String clienteNaoEncontrado = """
                 
                     Cliente Não Localizado.
                     ID Informado: %d
                 
                 """.formatted(id);
-        System.out.println(clieteNaoEncontrardo);
+        System.out.println(clienteNaoEncontrado);
     }
 
 
@@ -116,12 +162,12 @@ public class SaidaDados {
 
 
     public void solicitaTelefone() {
-        String solicitaTefone = """
+        String solicitaTelefone = """
                 
                     Insira o Telefone do Cliente.
                 
                 """;
-        System.out.println(solicitaTefone);
+        System.out.println(solicitaTelefone);
     }
 
 
