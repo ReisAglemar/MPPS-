@@ -65,16 +65,20 @@ public class Crud implements Icrud {
     @Override
     public void listaClientesAtivos() {
 
-        if (!clientes.isEmpty()) {
+        List<Cliente> clientesAtivos = new ArrayList<>();
 
-            for (Cliente cliente : clientes) {
-                if (cliente.getAtivo()) {
-                    saidaDados.mostraCliente(cliente);
-                }
+        for (Cliente cliente : clientes) {
+            if (cliente.getAtivo()) {
+                clientesAtivos.add(cliente);
+            }
+        }
+
+        if (!clientesAtivos.isEmpty()) {
+            for (Cliente clienteAtivos : clientesAtivos) {
+                saidaDados.mostraCliente(clienteAtivos);
             }
             return;
         }
-
         saidaDados.listaVazia();
     }
 
@@ -82,16 +86,20 @@ public class Crud implements Icrud {
     @Override
     public void listaClientesDesativos() {
 
-        if (!clientes.isEmpty()) {
+        List<Cliente> clientesDesativos = new ArrayList<>();
 
-            for (Cliente cliente : clientes) {
-                if (!cliente.getAtivo()) {
-                    saidaDados.mostraCliente(cliente);
-                }
+        for (Cliente cliente : clientes) {
+            if (!cliente.getAtivo()) {
+                clientesDesativos.add(cliente);
+            }
+        }
+
+        if (!clientesDesativos.isEmpty()) {
+            for (Cliente clienteDesativos : clientesDesativos) {
+                saidaDados.mostraCliente(clienteDesativos);
             }
             return;
         }
-
         saidaDados.listaVazia();
     }
 
