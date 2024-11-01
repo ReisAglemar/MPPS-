@@ -4,6 +4,7 @@ import edu.reis.model.Cliente;
 import edu.reis.model.Icrud;
 import edu.reis.view.SaidaDados;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GerenciaOperacoes {
@@ -46,7 +47,7 @@ public class GerenciaOperacoes {
         while (true) {
 
             String temporaria = teclado.nextLine();
-            Integer id = validaDadosEntrada.validaEntrada(temporaria);
+            Integer id = validaDadosEntrada.validaId(temporaria);
 
             if (id == null) {
                 saidaDados.operacaoCancelada();
@@ -93,14 +94,18 @@ public class GerenciaOperacoes {
             return;
         }
 
+        // cria buffer para a atualização de cadastro
+        Cliente clienteBuffer = new Cliente(clienteParaAlterar.getNome(),
+                clienteParaAlterar.getEmail(), clienteParaAlterar.getTelefone(), true);
+
         Integer opcaoAtualizar;
         String novoDado;
         boolean dadosAtualizado = false;
 
         do {
             saidaDados.menuAtualizarCliente();
-            String temporariaAtualizar = teclado.nextLine();
-            opcaoAtualizar = validaDadosEntrada.validaEntrada(temporariaAtualizar);
+            String temporaria = teclado.nextLine();
+            opcaoAtualizar = validaDadosEntrada.validaOpcaoMenu(temporaria);
 
             if (opcaoAtualizar == null) {
                 saidaDados.operacaoCancelada();
@@ -113,28 +118,48 @@ public class GerenciaOperacoes {
                     case 1:
                         saidaDados.solicitaNome();
                         novoDado = teclado.nextLine();
-                        clienteParaAlterar.setNome(novoDado);
+                        clienteBuffer.setNome(novoDado);
                         dadosAtualizado = true;
                         break;
 
                     case 2:
                         saidaDados.solicitaEmail();
                         novoDado = teclado.nextLine();
-                        clienteParaAlterar.setEmail(novoDado);
+                        clienteBuffer.setEmail(novoDado);
                         dadosAtualizado = true;
                         break;
 
                     case 3:
                         saidaDados.solicitaTelefone();
                         novoDado = teclado.nextLine();
-                        clienteParaAlterar.setTelefone(novoDado);
+                        clienteBuffer.setTelefone(novoDado);
                         dadosAtualizado = true;
                         break;
 
                     case 0:
 
                         if (dadosAtualizado) {
-                            saidaDados.clienteAlterado();
+                            saidaDados.mostraAlteracao(clienteParaAlterar, clienteBuffer);
+                            saidaDados.perguntaSalvaAteracao();
+                            temporaria = teclado.nextLine();
+                            Integer opcaoSalvar = validaDadosEntrada.validaOpcaoMenu(temporaria);
+
+                            switch (opcaoSalvar) {
+                                case 1:
+                                    clienteParaAlterar.setNome(clienteBuffer.getNome());
+                                    clienteParaAlterar.setEmail(clienteBuffer.getEmail());
+                                    clienteParaAlterar.setTelefone(clienteBuffer.getTelefone());
+                                    saidaDados.atulizacaoSalva();
+                                    break;
+
+                                case 2:
+                                    saidaDados.atulizacaoDescartada();
+                                    break;
+                                default:
+                                    saidaDados.opcaoInvalida();
+                                    break;
+                            }
+
                         } else {
                             saidaDados.operacaoCancelada();
                         }
@@ -145,8 +170,8 @@ public class GerenciaOperacoes {
                         break;
                 }
 
-            } catch (IllegalArgumentException e) {
-                saidaDados.illegalArgumentException(e);
+            } catch (InputMismatchException e) {
+                saidaDados.inputMismatchException();
             }
 
         } while (opcaoAtualizar != 0);
