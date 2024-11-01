@@ -4,7 +4,7 @@ public class Cliente {
 
     private static int idAuto = 1;
 
-    private final int id;
+    private int id;
     private String nome;
     private String email;
     private String telefone;
@@ -29,6 +29,12 @@ public class Cliente {
         this.email = email;
         this.telefone = telefone;
         this.ativo = true;
+    }
+
+    public Cliente(String nome, String email, String telefone , Boolean buffer) {
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
     }
 
 
