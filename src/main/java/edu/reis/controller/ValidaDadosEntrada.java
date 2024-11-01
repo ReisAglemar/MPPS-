@@ -11,7 +11,7 @@ public class ValidaDadosEntrada {
     }
 
 
-    public Integer validaEntrada(String entrada) {
+    public Integer validaId(String entrada) {
 
         if (entrada.equalsIgnoreCase("sair")) {
             return null;
@@ -23,6 +23,18 @@ public class ValidaDadosEntrada {
 
         } catch (NumberFormatException e) {
             saidaDados.numberFormatException();
+        }
+        return -1;
+    }
+
+
+    public Integer validaOpcaoMenu(String entrada) {
+
+        try {
+            Integer opcao = Integer.parseInt(entrada);
+            return opcao;
+        } catch (NumberFormatException e) {
+            saidaDados.inputMismatchException();
         }
         return -1;
     }
